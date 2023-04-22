@@ -1,0 +1,15 @@
+//  base.scss
+@use "./base.scss";
+
+//  abstracts
+@use "./abstracts/animations";
+@use "./abstracts/colors";
+@use "./abstracts/mediaqueries";
+@use "./abstracts/mixins";
+@use "./abstracts/reset";
+@use "./abstracts/vars";
+
+//  components
+@use "./components/header/header.scss";
+@use "./components/podcast/podcast.scss";
+@use "./components/footer/footer.scss";
