@@ -13,17 +13,10 @@
 
     &__section{
         display: flex;
-
-        &--left{
-        }
-
-        &--right{
-            background: blue;
-        }
     }
 
     &__cards{
-        height: 70%;
+        height: 60%;
         width: 100%;
         padding: 3rem;
         @include mixins.FlexCenter;
@@ -39,7 +32,6 @@
         display: flex;
         flex-direction: row;
         font-size: 80%;
-
 
         &:hover{
             cursor: pointer;
@@ -58,49 +50,89 @@
         right: 2rem;
         position: absolute;
         color: colors.$black;
-        background: rgba(255, 255, 255, 0.4);
+        background: vars.$headerBackground;
     }
 
     .card__title{
         bottom: 2rem;
         position: absolute;
         color: colors.$black;
-        background: rgba(255, 255, 255, 0.4);
+        background: vars.$headerBackground;
+    }
+
+    &__detail{
+        height: 100%;
+        width: 100%;
+        padding: 3rem;
+        @include mixins.FlexCenter;
+        flex-direction: column;
+        list-style: none;
     }
 
     &__img{
-
+        background-color: yellow;
+        width: 100%;
+        height: 100%;
+        padding: 2rem;
+        position: relative;
     }
 
     &__image{
-
+        width: 100%;
+        height: 50%;
     }
 
     &__date{
-        
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        color: colors.$black;
+        background: vars.$headerBackground;
     }
 
     &__title{
-        
+        position: absolute;
+        bottom: 2rem;
+        color: colors.$black;
+        background: vars.$headerBackground;
     }
 
     &__description{
-        
+        padding: 2rem;
+        width: 100%;
+        height: 100%;
     }
 
     &__p{
-        
+        color: colors.$black;
     }
-
-    audio{
-
-    }
-
+    
     &__audio{
-        
+        width: 100%;
+        height: 100%;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__button{
+        background: colors.$white;
+        border: 0.5rem solid colors.$black;
+        height: 100%;
+        width: 20%;
+        font-size: 2rem;
     }
 
     a{
+        text-decoration: none;
+        color: colors.$black;
+        width: 100%;
+        height: 100%;
 
+        &:hover{
+            color: colors.$blue;
+            text-decoration: underline;
+        }
     }
 }
