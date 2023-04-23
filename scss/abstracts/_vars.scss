@@ -3,3 +3,5 @@
 $font-family: 'Ubuntu', sans-serif;
 
 $gradient: linear-gradient(to bottom right, map-get(colors.$baseColors, "yellow"), 50%, map-get(colors.$baseColors, "red",));
+
+$headerBackground: rgba(255, 255, 255, 0.4);
