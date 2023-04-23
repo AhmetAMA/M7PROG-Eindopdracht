@@ -23,6 +23,8 @@
     }
 
     &__cards{
+        height: 70%;
+        width: 100%;
         padding: 3rem;
         @include mixins.FlexCenter;
         flex-direction: row;
@@ -31,10 +33,13 @@
     }
 
     &__card{
+        width: 50%;
         position: relative;
         padding: 2rem;
         display: flex;
+        flex-direction: row;
         font-size: 80%;
+
 
         &:hover{
             cursor: pointer;
@@ -62,4 +67,5 @@
         color: colors.$black;
         background: rgba(255, 255, 255, 0.4);
     }
+
 }
