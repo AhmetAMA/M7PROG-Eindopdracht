@@ -1,10 +1,7 @@
 body {
   min-height: 100vh;
   padding: 4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #F7FD04;
+  background: linear-gradient(to bottom right, #F7FD04, 50%, #FC5404);
   font-family: "Ubuntu", sans-serif;
 }
 
@@ -20,6 +17,98 @@ html {
 
 body {
   font-size: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8rem;
+  max-width: 150rem;
+  padding: 2rem;
+  margin: 0 auto;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  background: #FFFFFF;
+}
+.header__logo {
+  display: grid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  grid-column-start: 2;
+}
+
+.podcast {
+  min-height: calc(100vh - 8rem - 4rem);
+  max-width: 150rem;
+  padding: 4rem;
+  margin: 0 auto;
+  display: grid;
+  background: #FFFFFF;
+  grid-template-columns: 50% 50%;
+}
+.podcast__section {
+  display: flex;
+}
+.podcast__section--right {
+  background: blue;
+}
+.podcast__cards {
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+}
+.podcast__card {
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  font-size: 80%;
+}
+.podcast__card:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+  transition-duration: 0.2s;
+}
+.podcast .card__img {
+  object-fit: cover;
+  width: 100%;
+}
+.podcast .card__date {
+  top: 2rem;
+  right: 2rem;
+  position: absolute;
+  color: #000000;
+  background: rgba(255, 255, 255, 0.4);
+}
+.podcast .card__title {
+  bottom: 2rem;
+  position: absolute;
+  color: #000000;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8rem;
+  max-width: 150rem;
+  padding: 2rem;
+  margin: 0 auto;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  background: #FFFFFF;
+}
+.footer__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /*# sourceMappingURL=style.css.map */
