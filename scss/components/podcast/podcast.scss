@@ -3,11 +3,63 @@
 @use "../../abstracts/vars";
 
 .podcast{
-    background: colors.$white;
     min-height: calc(100vh - 8rem - 4rem);
-    display: grid;
-    grid-template-columns: 40% 60%;
-    padding: 4rem;
     max-width: 150rem;
+    padding: 4rem;
     margin: 0 auto;
+    display: grid;
+    background: colors.$white;
+    grid-template-columns: 50% 50%;
+
+    &__section{
+        display: flex;
+
+        &--left{
+        }
+
+        &--right{
+            background: blue;
+        }
+    }
+
+    &__cards{
+        padding: 3rem;
+        @include mixins.FlexCenter;
+        flex-direction: row;
+        flex-wrap: wrap;
+        list-style: none;
+    }
+
+    &__card{
+        position: relative;
+        padding: 2rem;
+        display: flex;
+        font-size: 80%;
+
+        &:hover{
+            cursor: pointer;
+            transform: scale(1.02);
+            transition-duration: 0.2s;
+        }
+    }
+
+    .card__img{
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .card__date{
+        top: 2rem;
+        right: 2rem;
+        position: absolute;
+        color: colors.$black;
+        background: rgba(255, 255, 255, 0.4);
+    }
+
+    .card__title{
+        bottom: 2rem;
+        position: absolute;
+        color: colors.$black;
+        background: rgba(255, 255, 255, 0.4);
+    }
 }
