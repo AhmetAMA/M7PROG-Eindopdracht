@@ -1,0 +1,13 @@
+@use "../../abstracts/colors";
+@use "../../abstracts/mixins";
+@use "../../abstracts/vars";
+
+.podcast{
+    background: colors.$white;
+    min-height: calc(100vh - 8rem - 4rem);
+    display: grid;
+    grid-template-columns: 40% 60%;
+    padding: 4rem;
+    max-width: 150rem;
+    margin: 0 auto;
+}
