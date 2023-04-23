@@ -1,11 +1,9 @@
 @use "./abstracts/colors";
 @use "./abstracts/vars";
-@use "./abstracts/mixins";
 
 body{
     min-height: 100vh;
     padding: 4rem;
-    @include mixins.FlexCenter;
-    background: map-get(colors.$baseColors, "yellow");
+    background: vars.$gradient;
     font-family: vars.$font-family;
 }
