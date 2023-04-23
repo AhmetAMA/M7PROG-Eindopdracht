@@ -1,1 +1,5 @@
+@use "./colors";
+
 $font-family: 'Ubuntu', sans-serif;
+
+$gradient: linear-gradient(to bottom right, map-get(colors.$baseColors, "yellow"), 50%, map-get(colors.$baseColors, "red",));
