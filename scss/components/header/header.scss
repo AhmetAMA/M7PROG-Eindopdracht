@@ -8,11 +8,12 @@
     max-width: 150rem;
     padding: 2rem;
     margin: 0 auto;
-    border-top-left-radius: 5rem;
-    border-top-right-radius: 5rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
     background: colors.$white;
 
     &__logo{
+        display: grid;
         @include mixins.FlexCenter;
         gap: 0.5rem;
         grid-column-start: 2;
