@@ -13,7 +13,6 @@
     background: colors.$white;
 
     &__logo{
-        display: grid;
         @include mixins.FlexCenter;
         gap: 2rem;
     }
