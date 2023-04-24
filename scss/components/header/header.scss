@@ -5,6 +5,7 @@
 .header{
     @include mixins.FlexCenter;
     height: 8rem;
+    width: 100%;
     max-width: 150rem;
     padding: 2rem;
     border-bottom: 0.2rem solid colors.$black;
