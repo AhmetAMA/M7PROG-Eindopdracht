@@ -1,6 +1,21 @@
-// class GetData{
+class GetData{
+    url = "";
+    data = null;
 
-// }
+    constructor(newURL) {
+        this.url = newURL;
+    }
+
+    async getData() {
+        await fetch(this.url)
+            .then(function (response) {
+                return response.json();
+            }).then((data) => {
+                this.data = data;
+            });
+        return this.data;
+    }
+}
 
 class Header{
     placeToRenderHeader;
@@ -11,6 +26,7 @@ class Header{
 
     constructor(placeToRenderHeader) {
         this.placeToRenderHeader = document.getElementsByTagName(placeToRenderHeader)[0];
+        
         this.headerElement = document.createElement("header");
         this.headerElement.classList = "header";
 
@@ -23,14 +39,16 @@ class Header{
         this.logoHeadingElement = document.createElement("h1");
         this.logoHeadingElement.classList = "header__podcast";
         this.logoHeadingElement.innerText = "Collection of Happiness";
+
+        this.render();
     }
 
     render() {
+        this.placeToRenderHeader.appendChild(this.headerElement);
+        
         this.headerElement.appendChild(this.figureElement);
         this.figureElement.appendChild(this.logoIElement);
         this.figureElement.appendChild(this.logoHeadingElement);
-
-        this.placeToRenderHeader.appendChild(this.headerElement);
     }
 }
 
@@ -45,24 +63,40 @@ class PodcastMain{
         this.mainElement = document.createElement("main");
         this.mainElement.classList = "podcast";
 
-        this.leftSection = new PodcastLeftSection(this.mainElement);
-        this.rightSection = new PodcastRightSection(this.mainElement, this);
+        this.rightsection = new PodcastLeftSection(this.mainElement);
+        this.leftsection = new PodcastRightSection(this.mainElement,  this);
+
+        this.render();
+    }
+
+    makePodcastFromData(data) {
+        this.rightSection.makePodcastFromData(data);
+    }
+
+    makeCardsFromData(data){
+        this.leftSection.makeCardsFromData(Object.entries(data)[0][0], data);
+    }
+
+    callFromLeftSection(account, data) {
+        this.rightSection.makePodcastFromData(account, data);
     }
 
     render() {
         this.placeToRenderPodcastMain.appendChild(this.mainElement);
-        this.leftSection.render();
-        this.rightSection.render();
+        this.rightsection.render();
+        this.leftsection.render();
     }
 }
 
 class PodcastLeftSection{
     mainElement;
     podcastMain;
+    // leftSectionElement;
+    // cardsElement;
 
     constructor(mainElement, podcastMain) {
         this.mainElement = mainElement;
-        this.bankyMain = podcastMain;
+        this.podcastMain = podcastMain;
 
         this.leftSectionElement = document.createElement("section");
         this.leftSectionElement.classList = "podcast__section podcast__section--left";
@@ -72,67 +106,93 @@ class PodcastLeftSection{
 
         this.cardElement = document.createElement("li");
         this.cardElement.classList = "podcast__card";
-
+    
         this.cardImgElement = document.createElement("img");
         this.cardImgElement.classList = "card__img";
-
+        // this.cardImgElement.src = data[i]["image"];
+    
         this.cardDateElement = document.createElement("h3");
         this.cardDateElement.classList = "card__date";
-
+        // this.cardDateElement.innerHTML = data[i]["date (dd-mm-yyyy)"];
+    
         this.cardTitleElement = document.createElement("h3");
-        this.cardTitleElement.classList = "card__title";       
+        this.cardTitleElement.classList = "card__title";
+        // this.cardTitleElement.innerHTML = data[i]["title"];
+        
+        this.render();
     }
-
+    
     render() {
         this.mainElement.appendChild(this.leftSectionElement);
-
         this.leftSectionElement.appendChild(this.cardsElement);
+        
         this.cardsElement.appendChild(this.cardElement);
         this.cardElement.appendChild(this.cardImgElement);
-        this.cardElement.appendChild( this.cardDateElement);
+        this.cardElement.appendChild(this.cardDateElement);
         this.cardElement.appendChild(this.cardTitleElement);
     }
 }
 
 class PodcastRightSection{
     mainElement;
+    // rightSectionElement;
+    // detailElement;
+    // imgElement;
+    // imgImageElement;
+    // imgDateElement;
+    // imgTitleElement;
+    // descriptionElement;
+    // descriptionPElement;
+    // audioElement;
+    // audioAudioElement;
+    // audioButtonElement;
+    // audioAElement;
         
     constructor(mainElement) {
         this.mainElement = mainElement;
-
+        
         this.rightSectionElement = document.createElement("section");
         this.rightSectionElement.classList = "podcast__section podcast__section--right";
-
+        
         this.detailElement = document.createElement("ul");
         this.detailElement.classList = "podcast__detail";
-
+        
         this.imgElement = document.createElement("li");
         this.imgElement.classList = "podcast__img";
-
+        
         this.imgImageElement = document.createElement("img");
         this.imgImageElement.classList = "podcast__image";
-
+        // this.imgImageElement.src = data[0]["image"];
+        
         this.imgDateElement = document.createElement("h3");
         this.imgDateElement.classList = "podcast__date";
-
+        // this.imgDateElement.innerHTML = data[0]["date (dd-mm-yyyy)"];
+        
         this.imgTitleElement = document.createElement("h3");
         this.imgTitleElement.classList = "podcast__title";  
+        // this.imgTitleElement.innerHTML = data[0]["title"];
         
         this.descriptionElement = document.createElement("li");
         this.descriptionElement.classList = "podcast__description";
-
+        
         this.descriptionPElement = document.createElement("p");
         this.descriptionPElement.classList = "podcast__p";
-
+        // this.dataTextElement.innerHTML = data[0]["coverText"];
+        
         this.audioElement = document.createElement("li");
         this.audioElement.classList = "podcast__audio";
-
+        
         this.audioAudioElement = document.createElement("audio");
-
+        // this.dataAudioElement.src = data[0]["audio"];
+        
         this.audioButtonElement = document.createElement("button");
         this.audioButtonElement.classList = "podcast__button";
-
+        
         this.audioAElement = document.createElement("a");
+        this.audioAElement.innerText = "Source >>";
+        // this.dataURLElement.href = data[0]["url"];
+        
+        this.render();
     }
 
     render() {
@@ -161,32 +221,50 @@ class Footer{
 
     constructor(placeToRenderFooter) {
         this.placeToRenderFooter = document.getElementsByTagName(placeToRenderFooter)[0];
+        
         this.footerElement = document.createElement("footer");
         this.footerElement.classList = "footer";
 
         this.footerHeadingElement = document.createElement("h2");
         this.footerHeadingElement.classList = "footer__header";
         this.footerHeadingElement.innerText = "Gemaakt door - Ahmet Asut SD2C MediaCollege";
+
+        this.render();
     }
 
     render() {
-        this.footerElement.appendChild(this.footerHeadingElement);
-
         this.placeToRenderFooter.appendChild(this.footerElement);
+        
+        this.footerElement.appendChild(this.footerHeadingElement);
     }
 }
 
 class App{
+    getData;
     podcastHeader;
     podcastMain;
-    GetDataFromApi;
+    podcastLeftSection;
+    podcastRightSection;
+    podcastFooter;
 
     constructor() {
-        this.header = new Header("body");
-        this.podcastMain = new podcastMain("body");
+        this.podcastHeader = new Header("body");
+        this.podcastMain = new PodcastMain("body");
+        this.podcastLeftSection = new PodcastLeftSection("main");
+        this.podcastRightSection = new PodcastRightSection("main");
+        this.podcastFooter = new Footer("body");
+        this.getData = new GetData("./data/transactions.json");
 
-        this.header.render();
+        // this.getData.getData().then((data) => {
+        //     this.podcastMain.makeCardsFromData(data);
+        //     this.podcastMain.makePodcastFromData(data);
+        // });
+
+        this.podcastHeader.render();
         this.podcastMain.render();
+        this.podcastLeftSection.render();
+        this.podcastRightSection.render();
+        this.podcastFooter.render();
     }
 }
 
