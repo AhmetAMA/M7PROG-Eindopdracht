@@ -11,7 +11,7 @@ class GetData{
             .then(function (response) {
                 return response.json();
             }).then((data) => {
-                this.data = data;
+                this.data = data.episodes;
             });
         return this.data;
     }
@@ -26,7 +26,7 @@ class Header{
 
     constructor(placeToRenderHeader) {
         this.placeToRenderHeader = document.getElementsByTagName(placeToRenderHeader)[0];
-        
+
         this.headerElement = document.createElement("header");
         this.headerElement.classList = "header";
 
@@ -45,7 +45,7 @@ class Header{
 
     render() {
         this.placeToRenderHeader.appendChild(this.headerElement);
-        
+
         this.headerElement.appendChild(this.figureElement);
         this.figureElement.appendChild(this.logoIElement);
         this.figureElement.appendChild(this.logoHeadingElement);
@@ -57,162 +57,153 @@ class PodcastMain{
     leftSection;
     rightSection;
 
-    constructor(placeToRenderPodcastMain) {
+    constructor(placeToRenderPodcastMain, data) {
         this.placeToRenderPodcastMain = document.getElementsByTagName(placeToRenderPodcastMain)[0];
 
         this.mainElement = document.createElement("main");
         this.mainElement.classList = "podcast";
 
-        this.rightsection = new PodcastLeftSection(this.mainElement);
-        this.leftsection = new PodcastRightSection(this.mainElement,  this);
-
-        this.render();
-    }
-
-    makePodcastFromData(data) {
-        this.rightSection.makePodcastFromData(data);
+        this.leftSection = new leftSection(this.mainElement,  this.rightSection);
+        this.rightSection = new rightSection(this.mainElement, data);
     }
 
     makeCardsFromData(data){
-        this.leftSection.makeCardsFromData(Object.entries(data)[0][0], data);
-    }
-
-    callFromLeftSection(account, data) {
-        this.rightSection.makePodcastFromData(account, data);
+        this.leftSection.makeCardsFromData(data);
     }
 
     render() {
         this.placeToRenderPodcastMain.appendChild(this.mainElement);
-        this.rightsection.render();
-        this.leftsection.render();
+        this.leftSection.render();
+        this.rightSection.render();
     }
 }
 
-class PodcastLeftSection{
+class leftSection{
     mainElement;
     podcastMain;
-    // leftSectionElement;
-    // cardsElement;
 
-    constructor(mainElement, podcastMain) {
+    constructor(mainElement) {
         this.mainElement = mainElement;
-        this.podcastMain = podcastMain;
 
         this.leftSectionElement = document.createElement("section");
         this.leftSectionElement.classList = "podcast__section podcast__section--left";
 
         this.cardsElement = document.createElement("ul");
         this.cardsElement.classList = "podcast__cards";
-
-        this.cardElement = document.createElement("li");
-        this.cardElement.classList = "podcast__card";
-    
-        this.cardImgElement = document.createElement("img");
-        this.cardImgElement.classList = "card__img";
-        // this.cardImgElement.src = data[i]["image"];
-    
-        this.cardDateElement = document.createElement("h3");
-        this.cardDateElement.classList = "card__date";
-        // this.cardDateElement.innerHTML = data[i]["date (dd-mm-yyyy)"];
-    
-        this.cardTitleElement = document.createElement("h3");
-        this.cardTitleElement.classList = "card__title";
-        // this.cardTitleElement.innerHTML = data[i]["title"];
-        
-        this.render();
     }
-    
+
+    makeCardsFromData(data) {
+        this.cardsElement.innerHTML = "";
+        for (let i = 0; i < 4; i++) {
+            this.cardElement = document.createElement("li");
+            this.cardElement.classList = "podcast__card";
+            this.cardElement.onclick = () => {
+                this.podcastMain.callFromLeftSection(data[Object.keys(data)[0]][i], data);
+            }
+
+            this.cardImgElement = document.createElement("img");
+            this.cardImgElement.classList = "card__img";
+            this.cardImgElement.src = data[Object.keys(data)[0]][i]["image"];
+
+            this.cardDateElement = document.createElement("h3");
+            this.cardDateElement.classList = "card__date";
+            this.cardDateElement.innerHTML = data[Object.keys(data)[0]][i]["date (dd-mm-yyyy)"];
+
+            this.cardTitleElement = document.createElement("h3");
+            this.cardTitleElement.classList = "card__title";
+            this.cardTitleElement.innerHTML = data[Object.keys(data)[0]][i]["title"];
+
+            this.cardsElement.appendChild(this.cardElement);
+            this.cardElement.appendChild(this.cardImgElement);
+            this.cardElement.appendChild(this.cardDateElement);
+            this.cardElement.appendChild(this.cardTitleElement);
+
+            this.render();
+        }
+    }
+
     render() {
         this.mainElement.appendChild(this.leftSectionElement);
         this.leftSectionElement.appendChild(this.cardsElement);
-        
-        this.cardsElement.appendChild(this.cardElement);
-        this.cardElement.appendChild(this.cardImgElement);
-        this.cardElement.appendChild(this.cardDateElement);
-        this.cardElement.appendChild(this.cardTitleElement);
     }
 }
 
-class PodcastRightSection{
+class rightSection{
     mainElement;
-    // rightSectionElement;
-    // detailElement;
-    // imgElement;
-    // imgImageElement;
-    // imgDateElement;
-    // imgTitleElement;
-    // descriptionElement;
-    // descriptionPElement;
-    // audioElement;
-    // audioAudioElement;
-    // audioButtonElement;
-    // audioAElement;
-        
+
     constructor(mainElement) {
+        console.log(mainElement);
         this.mainElement = mainElement;
-        
+
         this.rightSectionElement = document.createElement("section");
         this.rightSectionElement.classList = "podcast__section podcast__section--right";
-        
-        this.detailElement = document.createElement("ul");
-        this.detailElement.classList = "podcast__detail";
-        
-        this.imgElement = document.createElement("li");
+
+        this.imgElement = document.createElement("article");
         this.imgElement.classList = "podcast__img";
-        
+
         this.imgImageElement = document.createElement("img");
         this.imgImageElement.classList = "podcast__image";
-        // this.imgImageElement.src = data[0]["image"];
-        
+        this.imgImageElement.src = "img/WhyWeNeedFriendswithSharedInterest.webp";
+        // this.imgImageElement.src = data[cardToShow][i]["image"];
+
         this.imgDateElement = document.createElement("h3");
         this.imgDateElement.classList = "podcast__date";
-        // this.imgDateElement.innerHTML = data[0]["date (dd-mm-yyyy)"];
-        
+        // this.imgDateElement.innerHTML = data[cardToShow][i]["date (dd-mm-yyyy)"];
+
         this.imgTitleElement = document.createElement("h3");
-        this.imgTitleElement.classList = "podcast__title";  
-        // this.imgTitleElement.innerHTML = data[0]["title"];
-        
-        this.descriptionElement = document.createElement("li");
+        this.imgTitleElement.classList = "podcast__title";
+        // this.imgTitleElement.innerHTML = data[cardToShow]["title"];
+
+        this.descriptionElement = document.createElement("article");
         this.descriptionElement.classList = "podcast__description";
-        
+
         this.descriptionPElement = document.createElement("p");
         this.descriptionPElement.classList = "podcast__p";
-        // this.dataTextElement.innerHTML = data[0]["coverText"];
-        
-        this.audioElement = document.createElement("li");
+        this.descriptionPElement.innerHTML = "She's the world's leading animal behaviorist and an Autism advocacy leader. Guest Temple Grandin shares what kind of support systems led her to success, and we hear about how community, and lack thereof, affects our health and ability to succeed.";
+        // this.descriptionPElement.innerHTML = data[cardToShow][i]["coverText"];
+
+        this.audioElement = document.createElement("article");
         this.audioElement.classList = "podcast__audio";
-        
+
         this.audioAudioElement = document.createElement("audio");
-        // this.dataAudioElement.src = data[0]["audio"];
-        
+        this.audioAudioElement.src = "<https://dts.podtrac.com/redirect.mp3/dovetail.prxu.org/_/192/dd6e09d0-92a2-40eb-be53-c7b24c023f8d/SoH_S07E20_Temple_Grandin_SEG_1_mix_3.5.mp3>";
+        // this.audioAudioElement.src = data[cardToShow][i]["date (dd-mm-yyyy)"];
+
         this.audioButtonElement = document.createElement("button");
         this.audioButtonElement.classList = "podcast__button";
-        
+
         this.audioAElement = document.createElement("a");
+        this.audioAElement.href = "<https://greatergood.berkeley.edu/podcasts/item/why_we_need_friends_with_shared_interests_temple_grandin_autism_advocacy>";
         this.audioAElement.innerText = "Source >>";
-        // this.dataURLElement.href = data[0]["url"];
-        
+        // this.audioAElement.href = data[cardToShow][i]["url"];
+
+        this.render();
+    }
+
+    makePodcastFromData(card, data) {
+        this.imgImageElement.src = card["image"];
+        this.imgTitleElement.innerHTML = card["title"];
+        this.descriptionPElement.innerHTML = card["coverText"];
+        this.audioAudioElement.src = card["url"];
+
         this.render();
     }
 
     render() {
         this.mainElement.appendChild(this.rightSectionElement);
-
-        this.rightSectionElement.appendChild(this.detailElement);
-        this.detailElement.appendChild(this.imgElement);
+        this.rightSectionElement.appendChild(this.imgElement);
         this.imgElement.appendChild(this.imgImageElement);
-        this.imgElement.appendChild( this.imgDateElement);
+        this.imgElement.appendChild(this.imgDateElement);
         this.imgElement.appendChild(this.imgTitleElement);
-
-        this.detailElement.appendChild(this.descriptionElement);
+        this.rightSectionElement.appendChild(this.descriptionElement);
         this.descriptionElement.appendChild(this.descriptionPElement);
-
-        this.detailElement.appendChild(this.audioElement);
+        this.rightSectionElement.appendChild(this.audioElement);
         this.audioElement.appendChild(this.audioAudioElement);
         this.audioElement.appendChild(this.audioButtonElement);
         this.audioButtonElement.appendChild(this.audioAElement);
     }
 }
+
 
 class Footer{
     placeToRenderFooter;
@@ -221,7 +212,7 @@ class Footer{
 
     constructor(placeToRenderFooter) {
         this.placeToRenderFooter = document.getElementsByTagName(placeToRenderFooter)[0];
-        
+
         this.footerElement = document.createElement("footer");
         this.footerElement.classList = "footer";
 
@@ -234,7 +225,7 @@ class Footer{
 
     render() {
         this.placeToRenderFooter.appendChild(this.footerElement);
-        
+
         this.footerElement.appendChild(this.footerHeadingElement);
     }
 }
@@ -243,27 +234,23 @@ class App{
     getData;
     podcastHeader;
     podcastMain;
-    podcastLeftSection;
+    podcastLeftSection;  
     podcastRightSection;
     podcastFooter;
 
     constructor() {
         this.podcastHeader = new Header("body");
         this.podcastMain = new PodcastMain("body");
-        this.podcastLeftSection = new PodcastLeftSection("main");
-        this.podcastRightSection = new PodcastRightSection("main");
         this.podcastFooter = new Footer("body");
         this.getData = new GetData("./data/transactions.json");
 
-        // this.getData.getData().then((data) => {
-        //     this.podcastMain.makeCardsFromData(data);
-        //     this.podcastMain.makePodcastFromData(data);
-        // });
+        this.getData.getData().then((data) => {
+            this.podcastMain.makeCardsFromData(data);
+            this.podcastMain.makePodcastFromData(data);
+        });
 
         this.podcastHeader.render();
         this.podcastMain.render();
-        this.podcastLeftSection.render();
-        this.podcastRightSection.render();
         this.podcastFooter.render();
     }
 }
