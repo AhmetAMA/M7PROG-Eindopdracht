@@ -98,7 +98,7 @@ body {
   color: #000000;
   background: rgba(255, 255, 255, 0.4);
 }
-.podcast__detail {
+.podcast__section--right {
   height: 100%;
   width: 100%;
   padding: 3rem;
@@ -215,7 +215,7 @@ body {
   .podcast__date, .podcast__title {
     display: none;
   }
-  .podcast__detail {
+  .podcast__section--right {
     padding: 0.5rem;
     display: flex;
     justify-content: center;
