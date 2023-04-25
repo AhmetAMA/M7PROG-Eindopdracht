@@ -87,6 +87,9 @@ class leftSection{
         this.leftSectionElement = document.createElement("section");
         this.leftSectionElement.classList = "podcast__section podcast__section--left";
 
+        this.articleElement = document.createElement("article");
+        this.articleElement.classList = "collection__article";
+
         this.cardsElement = document.createElement("ul");
         this.cardsElement.classList = "podcast__cards";
     }
@@ -132,11 +135,11 @@ class leftSection{
 
 class rightSection{
     mainElement;
+    leftSection;
 
     constructor(mainElement, data) {
-        console.log(mainElement);
         this.mainElement = mainElement;
-        this.data = data
+        this.data = data;
 
         this.rightSectionElement = document.createElement("section");
         this.rightSectionElement.classList = "podcast__section podcast__section--right";
@@ -182,13 +185,11 @@ class rightSection{
 
     changeInnerData(data) {
         this.imgTitleElement.innerText = data.title;
-        this.imgImageElement.src = data.img;
+        this.descriptionPElement.innerText = data.coverText;
         this.imgDateElement.innerText = data.date;
-        this.descriptionPElement.innerText = data.summary;
-        this.audioAudioElement.innerText = "audio";
-        this.audioAElement.innerText = "source";
-        this.audioAudioElement.src = data.audioAudioElement;
-        this.audioAElement.href = data.audioAElement;
+        this.audioAudioElement.src = data.audio;
+        this.audioAElement.href = data.url;
+        this.imgImageElement.src = data.img;
     }
 
     render() {
@@ -220,8 +221,6 @@ class Footer{
         this.footerHeadingElement = document.createElement("h2");
         this.footerHeadingElement.classList = "footer__header";
         this.footerHeadingElement.innerText = "Gemaakt door - Ahmet Asut SD2C MediaCollege";
-
-        this.render();
     }
 
     render() {
