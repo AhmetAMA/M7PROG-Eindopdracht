@@ -87,15 +87,13 @@ class leftSection{
         this.leftSectionElement = document.createElement("section");
         this.leftSectionElement.classList = "podcast__section podcast__section--left";
 
-        this.articleElement = document.createElement("article");
-        this.articleElement.classList = "collection__article";
-
         this.cardsElement = document.createElement("ul");
         this.cardsElement.classList = "podcast__cards";
     }
 
     makeCardsFromData(data) {
         this.cardsElement.innerHTML = "";
+
         for (let i = 0; i < 4; i++) {
             const random = Math.floor(Math.random() * data.length);
 
@@ -114,8 +112,6 @@ class leftSection{
             this.cardTitleElement.classList = "card__title";
             this.cardTitleElement.innerText = data[random].title;
             
-            this.rightSection.changeInnerData(data[random]);
-
             this.cardElement.onclick = () => {
                 this.rightSection.changeInnerData(data[random]);
             }
@@ -153,9 +149,11 @@ class rightSection{
 
         this.imgDateElement = document.createElement("h3");
         this.imgDateElement.classList = "podcast__date";
+        this.imgDateElement.innerText = "02-03-2023";
 
         this.imgTitleElement = document.createElement("h3");
         this.imgTitleElement.classList = "podcast__title";
+        this.imgTitleElement.innerText = "Why We Need Friends with Shared Interest";
 
         this.descriptionElement = document.createElement("article");
         this.descriptionElement.classList = "podcast__description";
@@ -240,7 +238,7 @@ class App{
         this.podcastHeader = new Header("body");
         this.podcastMain = new PodcastMain("body");
         this.podcastFooter = new Footer("body");
-        this.getData = new GetData("./data/transactions.json");
+        this.getData = new GetData("./data/data.json");
 
         this.getData.getData().then((data) => {
             this.podcastMain.makeCardsFromData(data);
