@@ -61,8 +61,8 @@ class PodcastMain{
         this.mainElement = document.createElement("main");
         this.mainElement.classList = "podcast";
 
-        this.leftSection = new leftSection(this.mainElement,  this.rightSection);
         this.rightSection = new rightSection(this.mainElement, data);
+        this.leftSection = new leftSection(this.mainElement,  this.rightSection);
     }
 
     makeCardsFromData(data){
@@ -168,8 +168,6 @@ class rightSection{
         this.audioAudioElement = document.createElement("audio");
         this.audioAudioElement.controls = true;
         this.audioAudioElement.src = "https://dts.podtrac.com/redirect.mp3/dovetail.prxu.org/_/192/dd6e09d0-92a2-40eb-be53-c7b24c023f8d/SoH_S07E20_Temple_Grandin_SEG_1_mix_3.5.mp3";
-        // this.audioAudioElement.src = this.src;
-        // this.src = data.audioAudioElement;
 
         this.audioButtonElement = document.createElement("button");
         this.audioButtonElement.classList = "podcast__button";
@@ -177,17 +175,15 @@ class rightSection{
         this.audioAElement = document.createElement("a");
         this.audioAElement.innerText = "Source >>";
         this.audioAElement.href = "https://greatergood.berkeley.edu/podcasts/item/why_we_need_friends_with_shared_interests_temple_grandin_autism_advocacy";
-        // this.src = data.url;
-        // this.audioAElement.src = this.audioAElement;
     }
 
     changeInnerData(data) {
+        this.imgImageElement.src = data.img;
+        this.imgDateElement.innerText = data.date;
         this.imgTitleElement.innerText = data.title;
         this.descriptionPElement.innerText = data.coverText;
-        this.imgDateElement.innerText = data.date;
         this.audioAudioElement.src = data.audio;
         this.audioAElement.href = data.url;
-        this.imgImageElement.src = data.img;
     }
 
     render() {
